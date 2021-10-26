@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: micropost_production
-  username: micropost
-  password: <%= ENV['MICROPOST_DATABASE_PASSWORD'] %>
+  username: nghia
+  password: 123456
