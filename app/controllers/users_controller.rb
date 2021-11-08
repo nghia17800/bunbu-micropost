@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
   def show
     @user = User.find_by id: params[:id]
-    @microposts = @user.posts.paginate(page: params[:page])
+    @posts = @user.posts.paginate(page: params[:page])
   end
 
   def new
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
  
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
     else

@@ -1,16 +1,13 @@
-body { padding-top: 60px; }
 section { overflow: auto; }
 textarea { resize: vertical; }
 .center { text-align: center; }
 .center h1 { margin-bottom: 10px; }
 
-/* header */
-
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: blue;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -144,5 +141,14 @@ span.picture {
     margin-left: 60px;
   }
 }
- 
- 
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
