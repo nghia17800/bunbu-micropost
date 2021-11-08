@@ -5,7 +5,13 @@ class User < ApplicationRecord
   before_create :create_activation_digest
   validates :name, presence: true
   validates :email, uniqueness: true
+  has_many :posts, dependent: :destroy
   has_secure_password
+
+  def feed
+    Post.where "user_id = ?", id
+  end
+
   class << self
     def new_token
       SecureRandom.urlsafe_base64
