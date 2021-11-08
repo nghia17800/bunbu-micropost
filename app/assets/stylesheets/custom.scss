@@ -7,10 +7,9 @@ textarea { resize: vertical; }
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: blue;
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: -1px;
-  padding-top: 9px;
   font-weight: bold;
 }
   
@@ -151,4 +150,12 @@ span.picture {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.dropdown-menu{
+  background-color: var(--bs-body-color);
+}
+
+.nav-link a {
+  color: #fff;
 }
