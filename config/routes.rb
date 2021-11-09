@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   end
   resources :posts
   resources :relationships, only: [:create, :destroy]
+  get "/auth/:provider/callback", to: "sessions#omniauth"
+  get "/auth/facebook/callback", to: "omniauth_callbacks#facebook"
 end
