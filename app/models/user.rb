@@ -30,18 +30,23 @@ class User < ApplicationRecord
   end
 
   def self.create_from_omniauth(auth)
-    provider = Provider.find_by(uid: auth["uid"], name: auth["provider"])
-    if provider.blank?
-      user = User.find_or_create_by(email: auth["info"]["email"]) do |u|
-        u.name = auth["info"]["name"]
-        u.email = auth["info"]["email"]
-        u.password = SecureRandom.hex(16)
+    user = User.find_by(email: auth["info"]["email"])
+    if user.present?
+      provider = user.providers.find_by(name: auth["provider"])
+      if provider.present?
+        provider.update(uid: auth["uid"])
+      else
+        Provider.create(name: auth["provider"], uid: auth["uid"], user_id: user.id)
       end
-      Provider.create(name: auth["provider"], uid: auth["uid"], user_id: user.id)
-      user
     else
-      provider.user 
+      user = User.create(
+        email: auth["info"]["email"],
+        name: auth["info"]["name"],
+        password: SecureRandom.hex(16)
+      )
+      Provider.create(name: auth["provider"], uid: auth["uid"], user_id: user.id)
     end
+    user
   end
 
   class << self
