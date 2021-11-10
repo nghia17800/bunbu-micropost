@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: Relationship.name, foreign_key: :followed_id, dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :providers
   has_secure_password
 
   def feed
@@ -29,10 +30,17 @@ class User < ApplicationRecord
   end
 
   def self.create_from_omniauth(auth)
-    User.find_or_create_by(uid: auth["uid"], provider: auth["provider"]) do |u|
-      u.name = auth["info"]["name"]
-      u.email = auth["info"]["email"]
-      u.password = SecureRandom.hex(16)
+    provider = Provider.find_by(uid: auth["uid"], name: auth["provider"])
+    if provider.blank?
+      user = User.find_or_create_by(email: auth["info"]["email"]) do |u|
+        u.name = auth["info"]["name"]
+        u.email = auth["info"]["email"]
+        u.password = SecureRandom.hex(16)
+      end
+      Provider.create(name: auth["provider"], uid: auth["uid"], user_id: user.id)
+      user
+    else
+      provider.user 
     end
   end
 

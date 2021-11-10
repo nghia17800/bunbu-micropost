@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_09_034941) do
+ActiveRecord::Schema.define(version: 2021_11_10_075456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2021_11_09_034941) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "picture"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string "name"
+    t.string "uid"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_providers_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -42,9 +51,8 @@ ActiveRecord::Schema.define(version: 2021_11_09_034941) do
     t.string "activation_digest"
     t.boolean "activated"
     t.datetime "activated_at"
-    t.string "provider"
-    t.string "uid"
   end
 
   add_foreign_key "posts", "users"
+  add_foreign_key "providers", "users"
 end
