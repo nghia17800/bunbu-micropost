@@ -18,7 +18,11 @@ ActiveRecord::Schema.define(version: 2021_11_12_014504) do
   create_table "comments", force: :cascade do |t|
     t.string "content"
     t.integer "post_id"
+<<<<<<< HEAD
     t.integer "parent_comment_id"
+=======
+    t.integer "parent_id"
+>>>>>>> refs #3 Create table, validates, add associations.
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
