@@ -2,6 +2,7 @@ section { overflow: auto; }
 textarea { resize: vertical; }
 .center { text-align: center; }
 .center h1 { margin-bottom: 10px; }
+body {background-color: #F0F2F5;}
 
 #logo {
   float: left;
@@ -128,7 +129,9 @@ span.picture {
   }
   .content {
     display: block;
-    margin-left: 60px;
+    margin: 2px;
+    font-size: 13px;
+    font-weight: 400;
     img {
       display: block;
       padding: 5px 0;
@@ -137,7 +140,9 @@ span.picture {
   .timestamp {
     color: gray-light;
     display: block;
-    margin-left: 60px;
+    margin-left: 50px;
+    color: #65676B;
+    font-size: 12px;
   }
 }
 
@@ -206,4 +211,53 @@ span.picture {
 .users.follow {
   padding: 0;
 }
- 
+
+#gavatar-post img{
+  border-radius: 30px;
+  height: 40px;
+  width: 40px;
+}
+
+#micropost-feed-home{
+  background-color: #fff;
+  height: 55px;
+  width: 500px;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 15px;
+}
+
+#post-home{
+  background-color: #fff;
+  height: 100%;
+  width: 500px;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.name-user-home-post a {
+  font-size: 15px;
+  text-decoration: none;
+  color: #2C0505;
+  font-weight: 600;
+}
+
+.container-comment {
+  height: 40px;
+}
+
+#gavatar-post-comment img{
+  border-radius: 30px;
+  height: 32px;
+  width: 32px;
+  margin-left: 2px;
+  margin-top: 0px;
+}
+
+.input-comment{
+  width: 426px;
+  background-color: #F0F2F5;
+  border-radius: 15px;
+  font-size: 13px;
+}
