@@ -15,23 +15,25 @@
     <%= image_tag post.picture.url if post.picture? %>
   </span>
   <hr>
-  <% if (comments = post.comments).present? %>
-    <% comments.each do |c| %>
-      <div class="container-comments">
-        <%= link_to gravatar_for(c.user, size: 50), c.user, id: "gavatar-post-comment" %>
-        <span class="comment-index">
-          <div>
-            <%= link_to c.user.name, user_path(c.user), id: "name-comment" %>
-          </div>
-          <p id="content-comment"><%= c.content %></p>
-        </span>
-      </div>
+  <div class="abc">
+    <% if (comments = post.comments).present? %>
+      <% comments.each do |c| %>
+        <div class="container-comments">
+          <%= link_to gravatar_for(c.user, size: 50), c.user, id: "gavatar-post-comment" %>
+          <span class="comment-index">
+            <div>
+              <%= link_to c.user.name, user_path(c.user), id: "name-comment" %>
+            </div>
+            <p id="content-comment"><%= c.content %></p>
+          </span>
+        </div>
+      <% end %>
     <% end %>
-    <hr>
-  <% end %>
+  </div>
+  <hr>
   <div class="container-comment">
     <%= link_to gravatar_for(current_user, size: 50), current_user, id: "gavatar-post-comment" %>
-    <%= form_with(model: [post, post.comments.build]) do |f| %>
+    <%= form_with(model: [post, post.comments.build], local: false) do |f| %>
       <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.text_field :content, :class => 'form-control input-comment', placeholder: "Write a public comment..." %>
     <% end %>

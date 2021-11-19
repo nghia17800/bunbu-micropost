@@ -3,7 +3,10 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
     if @comment.save
-      redirect_to root_path
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js {}
+      end
     else
       flash[:danger] = "Invalid comment"
       redirect_to root_path
