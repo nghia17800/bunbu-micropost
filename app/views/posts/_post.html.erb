@@ -15,7 +15,7 @@
     <%= image_tag post.picture.url if post.picture? %>
   </span>
   <hr>
-  <div class="abc">
+  <div class="form-index-comment">
     <% if (all_comment = post.comments).present? %>
       <% comments = all_comment.select { |c| c.parent_comment_id == nil } %>
       <% comments.each do |c| %>
