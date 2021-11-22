@@ -16,15 +16,15 @@
   </span>
   <hr>
   <div class="form-index-comment">
-    <% if (comments = post.comments).present? %>
-      <% comments.each do |c| %>
+    <% if post.comments.present? %>
+      <% post.comments.each do |comment| %>
         <div class="container-comments">
-          <%= link_to gravatar_for(c.user, size: 50), c.user, id: "gavatar-post-comment" %>
+          <%= link_to gravatar_for(comment.user, size: 50), comment.user, id: "gavatar-post-comment" %>
           <span class="comment-index">
             <div>
-              <%= link_to c.user.name, user_path(c.user), id: "name-comment" %>
+              <%= link_to comment.user.name, user_path(comment.user), id: "name-comment" %>
             </div>
-            <p id="content-comment"><%= c.content %></p>
+            <p id="content-comment"><%= comment.content %></p>
           </span>
         </div>
       <% end %>
