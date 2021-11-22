@@ -340,7 +340,6 @@ span.picture {
 }
 
 .container-content-reply{
-  margin-left: 10%;
   margin-bottom: 10px;
 }
 
@@ -353,17 +352,16 @@ span.picture {
 }
 
 .attr-reply {
-  margin-left: 10%;
   margin-top: -15px;
 }
 
-.container-netsed-reply {
+.container-nested-content-reply {
   margin-left: 20%;
 }
 
 .attr-nested-reply {
-  margin-left: 30%;
-  margin-top: -15px;
+  margin-left: 15%;
+  margin-top: -8px;
 }
 
 .container-nested-reply {
@@ -377,8 +375,12 @@ span.picture {
 }
 
 .input-nested-reply {
-  width: 88%;
+  width: 85%;
   background-color: #F0F2F5;
   border-radius: 15px;
   font-size: 13px;
+}
+
+.form-index-reply-to-reply {
+  margin-left: 10%;
 }

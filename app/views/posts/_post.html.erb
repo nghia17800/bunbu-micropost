@@ -16,78 +16,81 @@
   </span>
   <hr>
   <div class="form-index-comment">
-    <% if (all_comment = post.comments).present? %>
-      <% comments = all_comment.select { |c| c.parent_comment_id == nil } %>
-      <% comments.each do |c| %>
-        <% if c.user.present? %>
+    <% if post.comments.present? %>
+      <% comments = post.comments.select { |comment| comment.parent_comment_id == nil } %>
+      <% comments.each do |comment| %>
+        <% if comment.user.present? %>
           <div class="container-comments">
-            <%= link_to gravatar_for(c.user, size: 50), c.user, id: "gavatar-post-comment" %>
+            <%= link_to gravatar_for(comment.user, size: 50), comment.user, id: "gavatar-post-comment" %>
             <span class="comment-index">
               <div>
-                <%= link_to c.user.name, user_path(c.user), id: "name-comment" %>
+                <%= link_to comment.user.name, user_path(comment.user), id: "name-comment" %>
               </div>
-              <p id="content-comment"><%= c.content %></p>
+              <p id="content-comment"><%= comment.content %></p>
             </span>
           </div>
           <div class="attr-comment">
             <span class="reply-to-comment">Reply</span>
             <span class="time-comment"><%= time_ago_in_words post.created_at %></span>
           </div>
-          <% c.replies.each do |r| %>
-            <div class="container-content-reply">
-              <%= link_to gravatar_for(r.user, size: 50), r.user, id: "gavatar-post-comment" %>
-              <span class="reply-index">
-                <div>
-                  <%= link_to r.user.name, user_path(r.user), id: "name-comment" %>
-                </div>
-                <p id="content-comment"><%= r.content %></p>
-              </span>
-            </div>
-            <div class="attr-reply">
-              <span class="reply-to-comment">Reply</span>
-              <span class="time-comment"><%= time_ago_in_words r.created_at %></span>
-            </div>
-            <% r.replies.each do |r| %>
-              <div class="container-netsed-reply">
-                <%= link_to gravatar_for(r.user, size: 50), r.user, id: "gavatar-post-comment" %>
+          <div class="form-index-reply-to-reply">
+            <% comment.replies.each do |reply| %>
+              <div class="container-content-reply">
+                <%= link_to gravatar_for(reply.user, size: 50), reply.user, id: "gavatar-post-comment" %>
                 <span class="reply-index">
                   <div>
-                    <%= link_to r.user.name, user_path(r.user), id: "name-comment" %>
+                    <%= link_to reply.user.name, user_path(reply.user), id: "name-comment" %>
                   </div>
-                  <p id="content-comment"><%= r.content %></p>
+                  <p id="content-comment"><%= reply.content %></p>
                 </span>
               </div>
-              <div class="attr-nested-reply">
-                <span class="time-comment"><%= time_ago_in_words r.created_at %></span>
+              <div class="attr-reply">
+                <span class="reply-to-comment">Reply</span>
+                <span class="time-comment"><%= time_ago_in_words reply.created_at %></span>
+              </div>
+              <div class="container-nested-content-reply">
+                <% reply.replies.each do |sub_reply| %>
+                  <div class="container-netsed-reply">
+                    <%= link_to gravatar_for(sub_reply.user, size: 50), sub_reply.user, id: "gavatar-post-comment" %>
+                    <span class="reply-index">
+                      <div>
+                        <%= link_to sub_reply.user.name, user_path(sub_reply.user), id: "name-comment" %>
+                      </div>
+                      <p id="content-comment"><%= sub_reply.content %></p>
+                    </span>
+                  </div>
+                  <div class="attr-nested-reply">
+                    <span class="time-comment"><%= time_ago_in_words sub_reply.created_at %></span>
+                  </div>
+                <% end %>
+              </div>
+              <div class="comment-from <%= reply.replies.blank? ? 'container-nested-reply' : 'container-nested-reply-none' %>" >
+                <%= link_to gravatar_for(current_user, size: 50), current_user, id: "gavatar-post-comment" %>
+                <%= form_with(model: [post, post.comments.new], local: false) do |f| %>
+                  <%= f.hidden_field :parent_comment_id, value: reply.id %>
+                  <%= f.hidden_field :user_id, value: current_user.id %>
+                  <%= f.text_field :content, :class => 'form-control input-nested-reply input-content-comment', :id => 'input-nested-reply', placeholder: "Write a public comment..." %>
+                <% end %>
               </div>
             <% end %>
-            <div class=<%= r.replies.blank? ? "container-nested-reply" : "container-nested-reply-none"  %> >
-              <%= link_to gravatar_for(current_user, size: 50), current_user, id: "gavatar-post-comment" %>
-              <%= form_with(model: [post, post.comments.new]) do |f| %>
-                <%= f.hidden_field :parent_comment_id, value: r.id %>
-                <%= f.hidden_field :user_id, value: current_user.id %>
-                <%= f.text_field :content, :class => 'form-control input-nested-reply', placeholder: "Write a public comment..." %>
-              <% end %>
-            </div>
-          <% end %>
-          <div class=<%= c.replies.blank? ? "container-reply" : "container-reply-none"  %> >
+          </div>
+          <div class="comment-from <%= comment.replies.blank? ? 'container-reply' : 'container-reply-none'  %>" >
             <%= link_to gravatar_for(current_user, size: 50), current_user, id: "gavatar-post-comment" %>
-            <%= form_with(model: [post, post.comments.new]) do |f| %>
-              <%= f.hidden_field :parent_comment_id, value: c.id %>
+            <%= form_with(model: [post, post.comments.new], local: false) do |f| %>
+              <%= f.hidden_field :parent_comment_id, value: comment.id %>
               <%= f.hidden_field :user_id, value: current_user.id %>
-              <%= f.text_field :content, :class => 'form-control input-reply', placeholder: "Write a public comment..." %>
+              <%= f.text_field :content, :class => 'form-control input-reply input-content-comment', :id => "input-reply-to-reply", placeholder: "Write a public comment..." %>
             <% end %>
           </div>
         <% end %>
       <% end %>
     <% end %>
   </div>
-  <hr>
-  <div class="container-comment">
+  <div class="container-comment comment-from">
     <%= link_to gravatar_for(current_user, size: 50), current_user, id: "gavatar-post-comment" %>
     <%= form_with(model: [post, post.comments.build], local: false) do |f| %>
       <%= f.hidden_field :user_id, value: current_user.id %>
-      <%= f.text_field :content, :class => 'form-control input-comment', placeholder: "Write a public comment..." %>
+      <%= f.text_field :content, :class => 'form-control input-comment input-content-comment', :id => 'input-reply-to-post', :value => f.object.content, placeholder: "Write a public comment..." %>
     <% end %>
   </div>
 </div>

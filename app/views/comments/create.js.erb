@@ -1,4 +1,6 @@
-$( ".form-index-comment" ).append( "<div class='container-comments'>" +
+var input_value = $('.input-content-comment:text').filter(function() { return this.value == "<%= params[:comment][:content] %>"; });
+var container_comment = input_value.parents(".comment-from").prev()
+container_comment.append( "<div class='container-comments'>" +
                       "<%= escape_javascript link_to gravatar_for(current_user, size: 50), current_user, id: 'gavatar-post-comment' %>" +
                       "<span class='comment-index'>" +
                         "<div>" +
@@ -6,5 +8,9 @@ $( ".form-index-comment" ).append( "<div class='container-comments'>" +
                         "</div>" +
                         "<p id='content-comment'><%= params[:comment][:content] %></p>" +
                       "</span>" +
+                    "</div>"+
+                    "<div class='attr-comment'>" +
+                      "<span class='reply-to-comment'>Reply</span>" +
+                      "<span class='time-comment'>less than a minute</span>" +
                     "</div>" );
-$(".input-comment").val('');
+$(".input-content-comment").val('');
