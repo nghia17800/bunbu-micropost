@@ -1,0 +1,8 @@
+<div class="comment-from <%= param.replies.blank? ? 'comment' : 'comment-none' %>" >
+  <%= link_to gravatar_for(current_user, size: 50), current_user, id: "gavatar-post-comment" %>
+  <%= form_with(model: [post, post.comments.new], local: false) do |f| %>
+    <%= f.hidden_field :parent_comment_id, value: param.id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.text_field :content, :class => 'form-control input-nested-reply input-content-comment', :id => 'input-nested-reply', placeholder: "Write a public comment..." %>
+  <% end %>
+</div>

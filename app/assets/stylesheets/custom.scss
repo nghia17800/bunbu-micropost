@@ -295,3 +295,92 @@ span.picture {
   font-size: 12px;
   margin-left: 5px;
 }
+
+.reply-to-comment{
+  font-size: 10px;
+  font-weight: bold;
+  color: #656B82;
+  text-decoration: none;
+  margin-left: 51px;
+}
+
+.reply-to-comment:hover{
+  cursor: pointer;
+  text-decoration: revert;
+  color: #656B82;
+}
+
+.time-comment {
+  font-size: 10px;
+  font-weight: bold;
+  color: #656B82;
+  text-decoration: none;
+  margin-left: 2px;
+}
+
+.attr-comment {
+  margin-top: -6px;
+}
+
+.container-reply {
+  margin-left: 10%;
+  visibility: hidden;
+  display: none;
+}
+
+.container-reply-none{
+  margin-left: 10%;
+}
+
+.input-reply {
+  width: 89%;
+  background-color: #F0F2F5;
+  border-radius: 15px;
+  font-size: 13px;
+}
+
+.container-content-reply{
+  margin-bottom: 10px;
+}
+
+.reply-index {
+  display: inline-block;
+  height: 90%;
+  width: 60%;
+  background-color: #F0F2F5;
+  border-radius: 18px;
+}
+
+.attr-reply {
+  margin-top: -15px;
+}
+
+.container-nested-content-reply {
+  margin-left: 20%;
+}
+
+.attr-nested-reply {
+  margin-left: 15%;
+  margin-top: -8px;
+}
+
+.comment {
+  margin-left: 20%;
+  visibility: hidden;
+  display: none;
+}
+
+.comment-none {
+  margin-left: 20%;
+}
+
+.input-nested-reply {
+  width: 85%;
+  background-color: #F0F2F5;
+  border-radius: 15px;
+  font-size: 13px;
+}
+
+.form-index-reply-to-reply {
+  margin-left: 10%;
+}
