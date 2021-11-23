@@ -1,0 +1,13 @@
+<div class='container-comments'>
+  <%= link_to gravatar_for(current_user, size: 50), current_user, id: 'gavatar-post-comment' %> 
+  <span class='comment-index'> 
+    <div> 
+      <%= link_to current_user.name, user_path(current_user), id: 'name-comment' %> 
+    </div> 
+    <p id='content-comment'><%= params[:comment][:content] %></p> 
+  </span> 
+</div>
+<div class='attr-comment'> 
+  <span class='reply-to-comment'>Reply</span> 
+  <span class='time-comment'>less than a minute</span> 
+</div>
