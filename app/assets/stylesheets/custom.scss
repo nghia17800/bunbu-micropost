@@ -255,9 +255,43 @@ span.picture {
   margin-top: 0px;
 }
 
+.container-comments{
+  margin-top: 10px;
+}
+
 .input-comment{
   width: 426px;
   background-color: #F0F2F5;
   border-radius: 15px;
   font-size: 13px;
+}
+
+.comment-index {
+  display: inline-block;
+  height: 90%;
+  width: 60%;
+  background-color: #F0F2F5;
+  border-radius: 18px;
+}
+
+#name-user-comment {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#name-comment{
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+#name-comment:hover{
+  text-decoration: revert;
+}
+
+#content-comment {
+  font-size: 12px;
+  margin-left: 5px;
 }

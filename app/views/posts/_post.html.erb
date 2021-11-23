@@ -15,8 +15,27 @@
     <%= image_tag post.picture.url if post.picture? %>
   </span>
   <hr>
+  <div class="form-index-comment">
+    <% if post.comments.present? %>
+      <% post.comments.each do |comment| %>
+        <div class="container-comments">
+          <%= link_to gravatar_for(comment.user, size: 50), comment.user, id: "gavatar-post-comment" %>
+          <span class="comment-index">
+            <div>
+              <%= link_to comment.user.name, user_path(comment.user), id: "name-comment" %>
+            </div>
+            <p id="content-comment"><%= comment.content %></p>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <hr>
   <div class="container-comment">
     <%= link_to gravatar_for(current_user, size: 50), current_user, id: "gavatar-post-comment" %>
-    <input type="text" class="form-control input-comment" id="basic-url" aria-describedby="basic-addon3" placeholder="Write a public comment...">
+    <%= form_with(model: [post, post.comments.build], local: false) do |f| %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.text_field :content, :class => 'form-control input-comment', placeholder: "Write a public comment..." %>
+    <% end %>
   </div>
 </div>
