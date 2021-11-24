@@ -13,6 +13,15 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Comment.find_by_id(params[:id])
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to request.referrer || root_url }
+      format.js {}
+    end
+  end
+
   private
 
   def comment_params
