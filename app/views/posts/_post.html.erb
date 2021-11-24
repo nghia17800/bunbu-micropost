@@ -20,7 +20,7 @@
       <% comments = post.comments.select { |comment| comment.parent_comment_id == nil } %>
       <% comments.each do |comment| %>
         <% if comment.user.present? %>
-          <div class="container-comments">
+          <div class="container-comments show-reply index-comment-<%= comment.id %>">
             <%= link_to gravatar_for(comment.user, size: 50), comment.user, id: "gavatar-post-comment" %>
             <span class="comment-index">
               <div>
@@ -28,14 +28,17 @@
               </div>
               <p id="content-comment"><%= comment.content %></p>
             </span>
-          </div>
-          <div class="attr-comment">
-            <span class="reply-to-comment">Reply</span>
-            <span class="time-comment"><%= time_ago_in_words post.created_at %></span>
+            <div class="attr-comment">
+              <span class="reply-to-comment">Reply</span>
+              <span class="time-comment"><%= time_ago_in_words post.created_at %></span>
+              <% if current_user.id == comment.user_id || current_user.admin? %>
+                <span class="action-comment"><%= link_to "Delete", post_comment_path(post, comment), method: :delete, data: {confirm: "You sure?"}, :remote => true %></span>
+              <% end %>
+            </div>
           </div>
           <div class="form-index-reply-to-reply index-content-<%= comment.id %>">
             <% comment.replies.each do |reply| %>
-              <div class="container-content-reply">
+              <div class="container-content-reply show-reply index-comment-<%= reply.id %>">
                 <%= link_to gravatar_for(reply.user, size: 50), reply.user, id: "gavatar-post-comment" %>
                 <span class="reply-index">
                   <div>
@@ -43,14 +46,17 @@
                   </div>
                   <p id="content-comment"><%= reply.content %></p>
                 </span>
-              </div>
-              <div class="attr-reply">
-                <span class="reply-to-comment">Reply</span>
-                <span class="time-comment"><%= time_ago_in_words reply.created_at %></span>
+                <div class="attr-reply">
+                  <span class="reply-to-comment">Reply</span>
+                  <span class="time-comment"><%= time_ago_in_words reply.created_at %></span>
+                  <% if current_user.id == reply.user_id || current_user.admin? %>
+                    <span class="action-comment"><%= link_to "Delete", post_comment_path(post, reply), method: :delete, data: {confirm: "You sure?"}, :remote => true %></span>
+                  <% end %>
+                </div>
               </div>
               <div class="container-nested-content-reply index-content-<%= reply.id %>">
                 <% reply.replies.each do |sub_reply| %>
-                  <div class="container-netsed-reply">
+                  <div class="container-netsed-reply show-reply index-comment-<%= sub_reply.id %>">
                     <%= link_to gravatar_for(sub_reply.user, size: 50), sub_reply.user, id: "gavatar-post-comment" %>
                     <span class="reply-index">
                       <div>
@@ -58,9 +64,12 @@
                       </div>
                       <p id="content-comment"><%= sub_reply.content %></p>
                     </span>
-                  </div>
-                  <div class="attr-nested-reply">
-                    <span class="time-comment"><%= time_ago_in_words sub_reply.created_at %></span>
+                    <div class="attr-nested-reply">
+                      <span class="time-comment"><%= time_ago_in_words sub_reply.created_at %></span>
+                      <% if current_user.id == sub_reply.user_id || current_user.admin? %>
+                        <span class="action-comment"><%= link_to "Delete", post_comment_path(post, sub_reply), method: :delete, data: {confirm: "You sure?"}, :remote => true %></span>
+                      <% end %>
+                    </div>
                   </div>
                 <% end %>
               </div>
