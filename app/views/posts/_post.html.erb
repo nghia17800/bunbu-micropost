@@ -32,7 +32,7 @@
               <span class="reply-to-comment">Reply</span>
               <span class="time-comment"><%= time_ago_in_words post.created_at %></span>
               <% if current_user.id == comment.user_id || current_user.admin? %>
-                <span class="action-comment"><%= link_to "Delete", post_comment_path(post, comment), method: :delete, data: {confirm: "You sure?"}, :remote => true %></span>
+                <span class="action-comment"><%= link_to "Delete", post_comment_path(post, comment), method: :delete, data: {confirm: "You sure?"}, remote: true %></span>
               <% end %>
             </div>
           </div>
@@ -50,7 +50,7 @@
                   <span class="reply-to-comment">Reply</span>
                   <span class="time-comment"><%= time_ago_in_words reply.created_at %></span>
                   <% if current_user.id == reply.user_id || current_user.admin? %>
-                    <span class="action-comment"><%= link_to "Delete", post_comment_path(post, reply), method: :delete, data: {confirm: "You sure?"}, :remote => true %></span>
+                    <span class="action-comment"><%= link_to "Delete", post_comment_path(post, reply), method: :delete, data: {confirm: "You sure?"}, remote: true %></span>
                   <% end %>
                 </div>
               </div>
@@ -67,7 +67,7 @@
                     <div class="attr-nested-reply">
                       <span class="time-comment"><%= time_ago_in_words sub_reply.created_at %></span>
                       <% if current_user.id == sub_reply.user_id || current_user.admin? %>
-                        <span class="action-comment"><%= link_to "Delete", post_comment_path(post, sub_reply), method: :delete, data: {confirm: "You sure?"}, :remote => true %></span>
+                        <span class="action-comment"><%= link_to "Delete", post_comment_path(post, sub_reply), method: :delete, data: {confirm: "You sure?"}, remote: true %></span>
                       <% end %>
                     </div>
                   </div>
