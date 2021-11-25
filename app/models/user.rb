@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token
-  before_save {self.email = email.downcase}
+
+  before_save { self.email = email.downcase }
   before_save   :downcase_email
   before_create :create_activation_digest
   validates :name, presence: true
@@ -18,19 +19,19 @@ class User < ApplicationRecord
     Post.where("user_id IN (?) OR user_id = ?", following_ids, id)
   end
 
-  def follow(other_user)
+  def follow other_user
     following << other_user
   end
 
-  def unfollow(other_user)
+  def unfollow other_user
     following.delete(other_user)
   end
 
-  def following?(other_user)
+  def following? other_user
     following.include?(other_user)
   end
 
-  def self.create_from_omniauth(auth)
+  def self.create_from_omniauth auth
     user = User.find_by(email: auth["info"]["email"])
     if user.present?
       provider = user.providers.find_by(name: auth["provider"])
@@ -55,7 +56,7 @@ class User < ApplicationRecord
       SecureRandom.urlsafe_base64
     end
 
-    def digest(string)
+    def digest string
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
         BCrypt::Engine.cost
       BCrypt::Password.create(string, cost: cost)
@@ -70,7 +71,7 @@ class User < ApplicationRecord
   def authenticated? remember_token
     BCrypt::Password.new(remember_digest).is_password? remember_token
   end
-  
+
   def forget
     update_attribute :remember_digest, nil
   end
