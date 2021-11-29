@@ -12,11 +12,9 @@
       <%= f.password_field :password, class: 'form-control' %>
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <%= f.label :current_password, "Confirmation" %>
+      <%= f.password_field :current_password, class: 'form-control' %>
       <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
-    <div class="gravatar_edit">
-      <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails" target="_blank">change</a>
-    </div>
   </div>
 </div>

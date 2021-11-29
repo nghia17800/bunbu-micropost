@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token
 
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
   before_save { self.email = email.downcase }
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -13,7 +15,6 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :providers
   has_many :comments
-  has_secure_password
 
   def feed
     Post.where("user_id IN (?) OR user_id = ?", following_ids, id)
