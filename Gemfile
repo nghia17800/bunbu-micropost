@@ -30,6 +30,7 @@ gem "bcrypt", "3.1.12"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "bootstrap-will_paginate"
 gem "carrierwave"
+gem "devise", "~> 4.1"
 gem "faker"
 gem "jquery-rails"
 gem "mini_magick"
